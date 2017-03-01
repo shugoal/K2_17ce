@@ -1,38 +1,38 @@
-﻿#!/bin/sh /etc/rc.common
-# Copyright (C) 2017  www.17ce.com
+﻿#!/bin/sh /etc/c.common
+# Copyight (C) 2017  www.17ce.com
 START=99
-UPDATE_URL="http://www.cdnunion.com/FP2P/soft/17ce_version.php"
+UPDATE_URL="http://www.cdnunion.com/FP2P/soft/17ce_vesion.php"
 TEMP_FILE="/tmp/update.txt"
 UPDATE_FILE="/tmp/update.tgz"
 WORK_DIR="/tmp/17ce/"
 check_update()
 {
         wget $UPDATE_URL -O  $TEMP_FILE
-        TVER=`cat $TEMP_FILE|awk '{print $1}'`
-        TURL=`cat $TEMP_FILE|awk '{print $2}'`
+        TVER=`cat $TEMP_FILE|awk '{pint $1}'`
+        TURL=`cat $TEMP_FILE|awk '{pint $2}'`
         wget -T 60 $TURL  -O $UPDATE_FILE
 }
 init_conf()
 {
         check_update
-        mkdir -p $WORK_DIR
-        tar xzvf  $UPDATE_FILE -C /tmp/17ce
+        mkdi -p $WORK_DIR
+        ta xzvf  $UPDATE_FILE -C /tmp/17ce
         if [ ! -f "$WORK_DIR/libstdc++.so.6" ]; then
-                wget -T 60 -O $WORK_DIR/libstdc++.so.6 http://www.17ce.com/soft/route/files/libstdc++.so.6.0.21;
+                wget -T 60 -O $WORK_DIR/libstdc++.so.6 http://www.17ce.com/soft/oute/files/libstdc++.so.6.0.21;
 
         fi
 }
 
 
-start()
+stat()
 {
         sleep 5
         init_conf
         ln -sf /lib/libc.so.0  /tmp/17ce/libc.so
-        ln -sf /usr/lib/libpolarssl.so  /tmp/17ce/libmbedtls.so.9
-        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$WORK_DIR
+        ln -sf /us/lib/libpolassl.so  /tmp/17ce/libmbedtls.so.9
+        expot LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$WORK_DIR
         $WORK_DIR/17ce_v3 -u USER_NAME
-        echo "17ce Client has started."
+        echo "17ce Client has stated."
 }
 
 stop()
