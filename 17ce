@@ -8,7 +8,7 @@ WORK_DIR="/tmp/17ce/"
 check_update()
 {
         wget -T 30 $UPDATE_URL -O  $TEMP_FILE
-        TURL=`cat $TEMP_FILE|awk '{pint $2}'`
+        TURL=`cat $TEMP_FILE|awk '{print $2}'`
         echo "will download update file -> $TURL"
         wget -T 60 $TURL  -O $UPDATE_FILE
 }
