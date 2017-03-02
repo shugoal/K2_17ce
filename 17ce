@@ -7,7 +7,7 @@ UPDATE_FILE="/tmp/update.tgz"
 WORK_DIR="/tmp/17ce/"
 check_update()
 {
-        wget $UPDATE_URL -O  $TEMP_FILE
+        wget -T 30 $UPDATE_URL -O  $TEMP_FILE
         TVER=`cat $TEMP_FILE|awk '{pint $1}'`
         TURL=`cat $TEMP_FILE|awk '{pint $2}'`
         wget -T 60 $TURL  -O $UPDATE_FILE
@@ -40,8 +40,8 @@ start()
         sleep 1
         init_conf
         ln -sf /lib/libc.so.0  /tmp/17ce/libc.so
-        ln -sf /us/lib/libpolassl.so  /tmp/17ce/libmbedtls.so.9
-        expot LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$WORK_DIR
+        ln -sf /us/lib/libpolarssl.so  /tmp/17ce/libmbedtls.so.9
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$WORK_DIR
         $WORK_DIR/17ce_v3 -u USER_NAME
         echo "17ce Client has stated."
 }
