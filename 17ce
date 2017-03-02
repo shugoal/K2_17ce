@@ -30,12 +30,13 @@ start()
 {
         echo "begin start 17ce"
         echo "~~~~~~"
-        #sleep 2
+        sleep 2
         echo "~~~~~~"
-        #sleep 2
+        sleep 2
         echo "~~~~~~"
-        #sleep 2
+        sleep 2
         init_conf
+        echo "create link"
         ln -sf /lib/libc.so.0  /tmp/17ce/libc.so
         ln -sf /usr/lib/libpolarssl.so  /tmp/17ce/libmbedtls.so.9
         export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$WORK_DIR
