@@ -27,7 +27,17 @@ init_conf()
 
 stat()
 {
-        sleep 5
+        echo "begin start 17ce"
+        echo "~~~~~~"
+        sleep 1
+        echo "~~~~~~"
+        sleep 1
+        echo "~~~~~~"
+        sleep 1
+        echo "~~~~~~"
+        sleep 1
+        echo "~~~~~~"
+        sleep 1
         init_conf
         ln -sf /lib/libc.so.0  /tmp/17ce/libc.so
         ln -sf /us/lib/libpolassl.so  /tmp/17ce/libmbedtls.so.9
