@@ -37,7 +37,7 @@ start()
         #sleep 2
         init_conf
         ln -sf /lib/libc.so.0  /tmp/17ce/libc.so
-        ln -sf /us/lib/libpolarssl.so  /tmp/17ce/libmbedtls.so.9
+        ln -sf /usr/lib/libpolarssl.so  /tmp/17ce/libmbedtls.so.9
         export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$WORK_DIR
         $WORK_DIR/17ce_v3 -u USER_NAME
         echo "17ce Client has stated."
