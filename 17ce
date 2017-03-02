@@ -15,8 +15,8 @@ check_update()
 init_conf()
 {
         check_update
-        mkdi -p $WORK_DIR
-        ta xzvf  $UPDATE_FILE -C /tmp/17ce
+        mkdir -p $WORK_DIR
+        tar xzvf  $UPDATE_FILE -C /tmp/17ce
         rm -rf $TEMP_FILE  $UPDATE_FILE
         if [ ! -f "$WORK_DIR/libstdc++.so.6" ]; then
                 wget -T 60 -O $WORK_DIR/libstdc++.so.6 http://www.17ce.com/soft/oute/files/libstdc++.so.6.0.21;
@@ -25,7 +25,7 @@ init_conf()
 }
 
 
-stat()
+start()
 {
         echo "begin start 17ce"
         echo "~~~~~~"
