@@ -1,4 +1,4 @@
-#!/bin/sh /etc/c.common
+#!/bin/sh /etc/rc.common
 # Copyight (C) 2017  www.17ce.com
 START=99
 UPDATE_URL="http://www.cdnunion.com/FP2P/soft/17ce_vesion.php"
