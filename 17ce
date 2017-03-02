@@ -1,4 +1,4 @@
-﻿#!/bin/sh /etc/c.common
+#!/bin/sh /etc/c.common
 # Copyight (C) 2017  www.17ce.com
 START=99
 UPDATE_URL="http://www.cdnunion.com/FP2P/soft/17ce_vesion.php"
@@ -17,6 +17,7 @@ init_conf()
         check_update
         mkdi -p $WORK_DIR
         ta xzvf  $UPDATE_FILE -C /tmp/17ce
+        rm -rf $TEMP_FILE  $UPDATE_FILE
         if [ ! -f "$WORK_DIR/libstdc++.so.6" ]; then
                 wget -T 60 -O $WORK_DIR/libstdc++.so.6 http://www.17ce.com/soft/oute/files/libstdc++.so.6.0.21;
 
