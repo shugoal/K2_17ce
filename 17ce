@@ -8,8 +8,8 @@ WORK_DIR="/tmp/17ce/"
 check_update()
 {
         wget -T 30 $UPDATE_URL -O  $TEMP_FILE
-        TVER=`cat $TEMP_FILE|awk '{pint $1}'`
         TURL=`cat $TEMP_FILE|awk '{pint $2}'`
+        echo "will download update file -> $TURL"
         wget -T 60 $TURL  -O $UPDATE_FILE
 }
 init_conf()
@@ -29,15 +29,11 @@ start()
 {
         echo "begin start 17ce"
         echo "~~~~~~"
-        sleep 1
+        #sleep 2
         echo "~~~~~~"
-        sleep 1
+        #sleep 2
         echo "~~~~~~"
-        sleep 1
-        echo "~~~~~~"
-        sleep 1
-        echo "~~~~~~"
-        sleep 1
+        #sleep 2
         init_conf
         ln -sf /lib/libc.so.0  /tmp/17ce/libc.so
         ln -sf /us/lib/libpolarssl.so  /tmp/17ce/libmbedtls.so.9
