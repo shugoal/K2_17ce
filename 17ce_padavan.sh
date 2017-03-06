@@ -1,6 +1,7 @@
 #!/bin/sh /etc/rc.common
 # Copyight (C) 2017  www.17ce.com
 START=99
+CDN_BASE="http://git.oschina.net/godvmxi/K2_17ce/raw/master/"
 UPDATE_URL="http://www.cdnunion.com/FP2P/soft/17ce_version.php"
 TEMP_FILE="/tmp/update.txt"
 UPDATE_FILE="/tmp/update.tgz"
@@ -8,6 +9,7 @@ WORK_DIR="/tmp/17ce/"
 SAVE_DIR="/usr/share/17ce"
 UUID="$SAVE_DIR/UUID"
 USER="$SAVE_DIR/user"
+WGET_CMD="wget -T 60 -O "
 check_update()
 {
         wget -T 30 $UPDATE_URL -O  $TEMP_FILE
@@ -15,11 +17,17 @@ check_update()
         echo "will download update file -> $TURL"
         wget -T 60 $TURL  -O $UPDATE_FILE
 }
+wget_install(){
+	WGET_CMD $1 $2
+	chmod +x $1
+}
 init_conf()
 {
-        check_update
+#       check_update
         mkdir -p $WORK_DIR
-        tar xzvf  $UPDATE_FILE -C /tmp/17ce
+
+	wget_install 17ce_v3      $CDN_BASE/bin/17ce_v3
+	wget_install conf.json    $CDN_BASE/bin/conf.json
         rm -rf $TEMP_FILE  $UPDATE_FILE
         if [ ! -f "$WORK_DIR/libstdc++.so.6" ]; then
                 echo "will download libstc++ "
