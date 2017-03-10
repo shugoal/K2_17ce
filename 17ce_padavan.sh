@@ -1,4 +1,4 @@
-#!/bin/sh /etc/rc.common
+#!/bin/sh
 # Copyight (C) 2017  www.17ce.com
 START=99
 CDN_BASE="http://git.oschina.net/godvmxi/K2_17ce/raw/master/"
@@ -6,10 +6,21 @@ UPDATE_URL="http://www.cdnunion.com/FP2P/soft/17ce_version.php"
 TEMP_FILE="/tmp/update.txt"
 UPDATE_FILE="/tmp/update.tgz"
 WORK_DIR="/tmp/17ce/"
-SAVE_DIR="/usr/share/17ce"
+SAVE_DIR="/etc/17ce"
 UUID="$SAVE_DIR/UUID"
 USER="$SAVE_DIR/user"
-WGET_CMD="wget -T 60 -O "
+wait_for_network(){
+        echo "~~~~~~"
+        sleep 2
+        echo "~~~~~~"
+        sleep 2
+        echo "~~~~~~"
+        sleep 2
+        echo "~~~~~~"
+        sleep 2
+        echo "~~~~~~"
+        sleep 2
+}
 check_update()
 {
         wget -T 30 $UPDATE_URL -O  $TEMP_FILE
@@ -18,22 +29,24 @@ check_update()
         wget -T 60 $TURL  -O $UPDATE_FILE
 }
 wget_install(){
-	WGET_CMD $1 $2
+	wget -T 60 -O $1  $2
 	chmod +x $1
 }
-init_conf()
+init_files()
 {
 #       check_update
         mkdir -p $WORK_DIR
-
+	cd $WORK_DIR
 	wget_install 17ce_v3      $CDN_BASE/bin/17ce_v3
 	wget_install conf.json    $CDN_BASE/bin/conf.json
-        rm -rf $TEMP_FILE  $UPDATE_FILE
-        if [ ! -f "$WORK_DIR/libstdc++.so.6" ]; then
-                echo "will download libstc++ "
-                wget -T 60 -O $WORK_DIR/libstdc++.so.6 http://www.17ce.com/soft/route/files/libstdc++.so.6.0.21;
+	wget_install libgcc_s.so.1   $CDN_BASE/lib/libgcc_s.so.1
+	wget_install libcurl.so.4   $CDN_BASE/lib/libcurl.so.4
+	wget_install libstdc++.so.6   $CDN_BASE/lib/libstdc++.so.6.0.21
+	wget_install libpolarssl.so.7    $CDN_BASE/lib/libpolarssl.so.1.3.9
 
-        fi
+	ln -sf $WORK_DIR/libpolarssl.so.7  libmbedtls.so.9 
+	ln -sf /lib/libc.so.0  libc.so
+
         mkdir -p $SAVE_DIR
 }
 save_file()
@@ -53,23 +66,16 @@ restore_file()
 start()
 {
         echo "begin start 17ce"
-        echo "~~~~~~"
-        sleep 2
-        echo "~~~~~~"
-        sleep 2
-        echo "~~~~~~"
-        sleep 2
-        init_conf
+	wait_for_network
+        init_files
         restore_file UUID
-        restore_file user
+   #     restore_file user
         echo "create link"
-        ln -sf /lib/libc.so.0  /tmp/17ce/libc.so
-        ln -sf /usr/lib/libpolarssl.so  /tmp/17ce/libmbedtls.so.9
         export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$WORK_DIR
-        $WORK_DIR/17ce_v3 -u USER_NAME
+        $WORK_DIR/17ce_v3 -u $1
         echo "17ce Client has stated."
         save_file UUID
-        save_file user
+	echo 
 }
 
 stop()
@@ -78,3 +84,5 @@ stop()
         sleep 1
         echo "17ce Client has stoped."
 }
+
+start  godvmxi@126.com
