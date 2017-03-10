@@ -5,7 +5,7 @@ CDN_BASE="http://git.oschina.net/godvmxi/K2_17ce/raw/master/"
 UPDATE_URL="http://www.cdnunion.com/FP2P/soft/17ce_version.php"
 TEMP_FILE="/tmp/update.txt"
 UPDATE_FILE="/tmp/update.tgz"
-WORK_DIR="/tmp/17ce/"
+WORK_DIR="/tmp/17ce"
 SAVE_DIR="/etc/storage/17ce"
 UUID="$SAVE_DIR/UUID"
 USER="$SAVE_DIR/user"
@@ -13,13 +13,6 @@ wait_for_network(){
         echo "~~~~~~"
         sleep 2
         echo "~~~~~~"
-        sleep 2
-        echo "~~~~~~"
-        sleep 2
-        echo "~~~~~~"
-        sleep 2
-        echo "~~~~~~"
-        sleep 2
 }
 check_update()
 {
@@ -53,12 +46,16 @@ save_file()
 {
     echo "save $WORK_DIR/$1 -> $SAVE_DIR/$1"
     cp  -f $WORK_DIR/$1 $SAVE_DIR/$1
+    cat $WORK_DIR/$1
+    echo  ""
 }
 restore_file()
 {
     if [ -f $SAVE_DIR/$1 ]; then 
         echo "restore $SAVE_DIR/$1 -> $WORK_DIR/$1"
         cp  -f $WORK_DIR/$1 $SAVE_DIR/$1
+    	cat $WORK_DIR/$1
+	echo ""
     else
         echo "SAVE_DIR/$1 not exist"
     fi
@@ -69,12 +66,14 @@ start()
 	wait_for_network
         init_files
         restore_file UUID
-   #     restore_file user
+        restore_file user
         echo "create link"
         export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$WORK_DIR
         $WORK_DIR/17ce_v3 -u $1
         echo "17ce Client has stated."
+	mkdir -p $SAVE_DIR
         save_file UUID
+	save_file user
 	echo 
 }
 
@@ -85,4 +84,4 @@ stop()
         echo "17ce Client has stoped."
 }
 
-start  godvmxi@126.com
+start  $1
