@@ -6,7 +6,7 @@ UPDATE_URL="http://www.cdnunion.com/FP2P/soft/17ce_version.php"
 TEMP_FILE="/tmp/update.txt"
 UPDATE_FILE="/tmp/update.tgz"
 WORK_DIR="/tmp/17ce/"
-SAVE_DIR="/etc/17ce"
+SAVE_DIR="/etc/storage/17ce"
 UUID="$SAVE_DIR/UUID"
 USER="$SAVE_DIR/user"
 wait_for_network(){
@@ -57,7 +57,7 @@ save_file()
 restore_file()
 {
     if [ -f $SAVE_DIR/$1 ]; then 
-        echo "restore $SAVE_DIR/$1 -> $RESTORE_DIR/$1"
+        echo "restore $SAVE_DIR/$1 -> $WORK_DIR/$1"
         cp  -f $WORK_DIR/$1 $SAVE_DIR/$1
     else
         echo "SAVE_DIR/$1 not exist"
