@@ -46,15 +46,23 @@ save_file()
 {
     echo "save $WORK_DIR/$1 -> $SAVE_DIR/$1"
     cp  -f $WORK_DIR/$1 $SAVE_DIR/$1
-    cat $WORK_DIR/$1
-    echo  ""
+    echo "work->"
+    cat $SAVE_DIR/$1
+    echo ""
+    echo "save ->"
+    cat $SAVE_DIR/$1
+    echo ""
 }
 restore_file()
 {
     if [ -f $SAVE_DIR/$1 ]; then 
         echo "restore $SAVE_DIR/$1 -> $WORK_DIR/$1"
         cp  -f $WORK_DIR/$1 $SAVE_DIR/$1
-    	cat $WORK_DIR/$1
+	echo "save ->"
+    	cat $SAVE_DIR/$1
+	echo ""
+	echo "work->"
+    	cat $SAVE_DIR/$1
 	echo ""
     else
         echo "SAVE_DIR/$1 not exist"
