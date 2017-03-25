@@ -1,7 +1,7 @@
 #!/bin/sh
 # Copyight (C) 2017  www.17ce.com
 START=99
-CDN_BASE="http://git.oschina.net/godvmxi/K2_17ce/raw/master/"
+CDN_BASE="http://git.oschina.net/mjyhj/K2_17ce/raw/master/"
 UPDATE_URL="http://www.cdnunion.com/FP2P/soft/17ce_version.php"
 TEMP_FILE="/tmp/update.txt"
 UPDATE_FILE="/tmp/update.tgz"
