@@ -3,9 +3,9 @@
 START=99
 CDN_BASE="http://git.oschina.net/mjyhj/K2_17ce/raw/master/"
 UPDATE_URL="http://git.oschina.net/mjyhj/K2_17ce/raw/master/17ce_version.php"
-TEMP_FILE="/tmp/update.txt"
-UPDATE_FILE="/tmp/update.tgz"
 WORK_DIR="/tmp/17ce"
+UPDATE_FILE="$WORK_DIR/update.tgz"
+TEMP_FILE="$WORK_DIR/update.txt"
 SAVE_DIR="/usr/share/17ce"
 UUID="$SAVE_DIR/UUID"
 USER="$SAVE_DIR/user"
@@ -27,15 +27,14 @@ check_update()
 init_conf()
 {
         mkdir -p $WORK_DIR
-
-        rm -rf $TEMP_FILE  $UPDATE_FILE
-#	check_update
-	cd $WORK_DIR
-	wget_install libstdc++.so.6   $CDN_BASE/lib/libstdc++.so.6.0.21
-        ln -sf /lib/libc.so.0  libc.so
-        ln -sf /usr/lib/libpolarssl.so  libmbedtls.so.9
-
         mkdir -p $SAVE_DIR
+        rm -rf $TEMP_FILE  $UPDATE_FILE
+	check_update
+	wget_install $WORK_DIR/libstdc++.so.6   $CDN_BASE/lib/libstdc++.so.6.0.21
+        echo "create link"
+        ln -sf /lib/libc.so.0  /tmp/17ce/libc.so
+        ln -sf /usr/lib/libpolarssl.so  /tmp/17ce/libmbedtls.so.9
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$WORK_DIR
 }
 save_file()
 {
@@ -75,11 +74,8 @@ start()
         init_conf
         restore_file UUID
         restore_file user
-        echo "create link"       
-        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$WORK_DIR
         $WORK_DIR/17ce_v3 -u USER_NAME
         echo "17ce Client has stated."
-        mkdir -p $SAVE_DIR
         save_file UUID
         save_file user
 }
