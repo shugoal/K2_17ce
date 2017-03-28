@@ -4,7 +4,7 @@ if [ $# == 1 ]; then
 	echo "17CE user name -->$1"
 	echo "if the user name is error ,ctrl +c exit"
 	sleep 3
-else 
+    else 
 	echo "please use the cmd-->"
 	echo "     ./install.sh   xxx@xxx.com"
 	exit 1
