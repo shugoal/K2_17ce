@@ -7,7 +7,6 @@ init_conf()
 {
 #	config_load '17ceclient'
 #	config_get username 17ceclient username
-  mkdir $WORK_DIR
 	if [ ! -f "/tmp/lib/libstdc++.so.6" ]; then
 	wget -O /tmp/lib/libstdc++.so.6   $CDN_BASE/lib/libstdc++.so.6.0.21
 	wget -O /tmp/17ce/17ce_v3      $CDN_BASE/bin/17ce_v3
