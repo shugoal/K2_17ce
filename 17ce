@@ -1,34 +1,88 @@
 #!/bin/sh /etc/rc.common
-# Copyright (C) 2017  www.17ce.com
+# Copyight (C) 2017  www.17ce.com
 START=99
-CDN_BASE="http://git.oschina.net/mjyhj/K2_17ce/raw/master/"
-WORK_DIR="/tmp/17ce/"
+CDN_BASE="http://git.oschina.net/godvmxi/K2_17ce/raw/master/"
+UPDATE_URL="http://www.cdnunion.com/FP2P/soft/17ce_version.php"
+WORK_DIR="/tmp/17ce"
+UPDATE_FILE="$WORK_DIR/update.tgz"
+TEMP_FILE="$WORK_DIR/update.txt"
+SAVE_DIR="/usr/share/17ce"
+UUID="$SAVE_DIR/UUID"
+USER="$SAVE_DIR/user"
+CDN_BASE="http://git.oschina.net/godvmxi/K2_17ce/raw/master/"
+GET_CMD="wget -T 60 -O "
+wget_install(){
+	wget -T 60 -O $1  $2
+	chmod +x $1
+}
+check_update()
+{
+	wget_install  $TEMP_FILE   $UPDATE_URL
+        TURL=`cat $TEMP_FILE|awk '{print $2}'`
+        echo "will download update file -> $TURL"
+        wget -T 60 $TURL  -O $UPDATE_FILE
+	wget_install  $UPDATE_FILE   $TURL
+	tar xzvf $UPDATE_FILE -C $WORK_DIR 
+}
 init_conf()
 {
-#	config_load '17ceclient'
-#	config_get username 17ceclient username
-	if [ ! -f "/tmp/lib/libstdc++.so.6" ]; then
-	wget -O /tmp/lib/libstdc++.so.6   $CDN_BASE/lib/libstdc++.so.6.0.21
-	wget -O /tmp/17ce/17ce_v3      $CDN_BASE/bin/17ce_v3
-	wget -O /tmp/17ce/conf.json    $CDN_BASE/bin/conf.json
-	fi
-
-	if [ -f "/tmp/17ce/UUID" ]; then cd /tmp/17ce; rm UUID 17ce_v3.log user; fi;
+        mkdir -p $WORK_DIR
+        mkdir -p $SAVE_DIR
+        rm -rf $TEMP_FILE  $UPDATE_FILE
+	check_update
+	wget_install $WORK_DIR/libstdc++.so.6   $CDN_BASE/lib/libstdc++.so.6.0.21
+        echo "create link"
+        ln -sf /lib/libc.so.0  /tmp/17ce/libc.so
+        ln -sf /usr/lib/libpolarssl.so  /tmp/17ce/libmbedtls.so.9
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$WORK_DIR
 }
-
+save_file()
+{
+    echo "save $WORK_DIR/$1 -> $SAVE_DIR/$1"
+    cp  -f $WORK_DIR/$1 $SAVE_DIR/$1
+    echo "work->"
+    cat $SAVE_DIR/$1
+    echo ""
+    echo "save ->"
+    cat $SAVE_DIR/$1
+    echo ""
+}
+restore_file()
+{
+    if [ -f $SAVE_DIR/$1 ]; then 
+        echo "restore $SAVE_DIR/$1 -> $WORK_DIR/$1"
+        cp  -f $WORK_DIR/$1 $SAVE_DIR/$1
+	echo "save ->"
+    	cat $SAVE_DIR/$1
+	echo ""
+	echo "work->"
+    	cat $SAVE_DIR/$1
+	echo ""
+    else
+        echo "SAVE_DIR/$1 not exist"
+    fi
+}
 start()
 {
-  sleep 5
-	init_conf
-  ln -sf /lib/libc.so.0  /tmp/lib/libc.so
-  ln -sf /us/lib/libpolassl.so  /tmp/lib/libmbedtls.so.9
-	$WORK_DIR/17ce_v3 -u USER_NAME
-	echo "17ce Client has started."
+        echo "begin start 17ce"
+        echo "~~~~~~"
+        sleep 2
+        echo "~~~~~~"
+        sleep 2
+        echo "~~~~~~"
+        sleep 2
+        init_conf
+        restore_file UUID
+        restore_file user
+        $WORK_DIR/17ce_v3 -u USER_NAME
+        echo "17ce Client has stated."
+        save_file UUID
+        save_file user
 }
 
 stop()
 {
-	killall -9 17ce_v3
-	sleep 1
-	echo "17ce Client has stoped."
+        killall -9 17ce_v3
+        sleep 1
+        echo "17ce Client has stoped."
 }
