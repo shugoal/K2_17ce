@@ -78,7 +78,7 @@ start()
         init_conf
         restore_file UUID
         restore_file user
-        $WORK_DIR/17ce_v3 -u USER_NAME
+        $WORK_DIR/17ce_v3 -u 171285200@qq.com
         echo "17ce Client has stated."
         save_file UUID
         save_file user
