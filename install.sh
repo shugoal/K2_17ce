@@ -16,7 +16,6 @@ cd /tmp
 CE_URL="http://git.oschina.net/mjyhj/K2_17ce/raw/master/17ce"
 rm  -rf 17ce*
 wget -T 30 $CE_URL  -O 17ce.t
-
 sed   "s/USER_NAME/$1/g" 17ce.t > 17ce
 cp 17ce /etc/init.d/17ce
 chmod +x  /etc/init.d/17ce
