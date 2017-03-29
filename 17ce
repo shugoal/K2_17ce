@@ -31,7 +31,9 @@ init_conf()
         rm -rf $TEMP_FILE  $UPDATE_FILE
 	check_update
 	wget_install $WORK_DIR/libstdc++.so.6   $CDN_BASE/lib/libstdc++.so.6.0.21
+        wget_install $WORK_DIR/libcurl.so.4   $CDN_BASE/lib/libcurl.so.4
         echo "create link"
+        ln -sf /tmp/17ce/libcurl.so.4  /usr/lib/libcurl.so.4
         ln -sf /lib/libc.so.0  /tmp/17ce/libc.so
         ln -sf /usr/lib/libpolarssl.so  /tmp/17ce/libmbedtls.so.9
         export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$WORK_DIR
