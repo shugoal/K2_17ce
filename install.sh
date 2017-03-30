@@ -1,5 +1,4 @@
 #!/bin/sh
-CRON_FILE=/etc/crontabs/root
 CE_URL="http://git.oschina.net/mjyhj/K2_17ce/raw/master/17ce"
 echo "begin install k2 17ce"
 cd /tmp
