@@ -14,6 +14,3 @@ ln -sf /etc/init.d/17ce  /etc/rc.d/S9917ce
 rm -rf /tmp/17ce
 /etc/init.d/17ce stop
 /etc/init.d/17ce start
-
-#####0 4 * * * /etc/init.d/17ce start >> /tmp/17ce.log 2>&1#####
-#####**0 1 * * 0 echo "" > /tmp/17ce.log####
