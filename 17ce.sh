@@ -29,7 +29,6 @@ init_files()
         killall -9 17ce_v3
         rm -rf $WORK_DIR
         mkdir -p $WORK_DIR
-        mkdir -p $SAVE_DIR
 	cd $WORK_DIR
 	wget_install 17ce_v3      $CDN_BASE/bin/17ce_v3
 	wget_install conf.json    $CDN_BASE/bin/conf.json
