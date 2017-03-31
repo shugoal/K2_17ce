@@ -7,8 +7,6 @@ TEMP_FILE="/tmp/update.txt"
 UPDATE_FILE="/tmp/update.tgz"
 WORK_DIR="/tmp/17ce"
 SAVE_DIR="/etc/storage/17ce"
-UUID="$SAVE_DIR/UUID"
-USER="$SAVE_DIR/user"
 wait_for_network(){
         echo "~~~~~~"
         sleep 2
@@ -41,50 +39,20 @@ init_files()
 
 	ln -sf $WORK_DIR/libpolarssl.so.7  libmbedtls.so.9 
 	ln -sf /lib/libc.so.0  libc.so
+        
+}
 
-        mkdir -p $SAVE_DIR
-}
-save_file()
-{
-    echo "save $WORK_DIR/$1 -> $SAVE_DIR/$1"
-    cp  -f $WORK_DIR/$1 $SAVE_DIR/$1
-    echo "work->"
-    cat $SAVE_DIR/$1
-    echo ""
-    echo "save ->"
-    cat $SAVE_DIR/$1
-    echo ""
-}
-restore_file()
-{
-    if [ -f $SAVE_DIR/$1 ]; then 
-        echo "restore $SAVE_DIR/$1 -> $WORK_DIR/$1"
-        cp  -f $WORK_DIR/$1 $SAVE_DIR/$1
-	echo "save ->"
-    	cat $SAVE_DIR/$1
-	echo ""
-	echo "work->"
-    	cat $SAVE_DIR/$1
-	echo ""
-    else
-        echo "SAVE_DIR/$1 not exist"
-    fi
-}
 start()
 {
         echo "begin start 17ce"
         killall -9 17ce_v3
 	wait_for_network
         init_files
-        restore_file UUID
-        restore_file user
         echo "create link"
         export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$WORK_DIR
         $WORK_DIR/17ce_v3 -u $1
         echo "17ce Client has stated."
 	mkdir -p $SAVE_DIR
-        save_file UUID
-	save_file user
 	echo 
 }
 
