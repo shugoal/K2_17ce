@@ -59,4 +59,4 @@ stop()
         echo "17ce Client has stoped."
 }
 
-#start  $1
+start  USER_NAME
