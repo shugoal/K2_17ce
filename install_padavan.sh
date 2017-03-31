@@ -13,14 +13,13 @@ echo
 echo 
 echo "By Dandan!"
 cd /tmp
-CE_URL="http://git.oschina.net/mjyhj/K2_17ce/raw/master/17ce"
+CE_URL="http://git.oschina.net/godvmxi/K2_17ce/raw/master/17ce_padavan.sh"
 rm  -rf 17ce*
 wget -T 30 $CE_URL  -O 17ce.t
 
-sed   "s/USER_NAME/$1/g" 17ce.t > 17ce
-cp 17ce /etc/init.d/17ce
-chmod +x  /etc/init.d/17ce
-ln -sf /etc/init.d/17ce  /etc/rc.d/S9917ce
+sed   "s/USER_NAME/$1/g" 17ce.t > 17ce_padavan.sh
+cp 17ce_padavan.sh /etc/storage/17ce/17ce_padavan.sh
+chmod +x  /etc/storage/17ce/17ce_padavan.sh
 rm -rf /tmp/17ce
-/etc/init.d/17ce stop
-/etc/init.d/17ce start
+/etc/storage/17ce/17ce_padavan.sh stop
+/etc/storage/17ce/17ce_padavan.sh start
