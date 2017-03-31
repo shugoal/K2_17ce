@@ -71,6 +71,7 @@ restore_file()
 start()
 {
         echo "begin start 17ce"
+        killall -9 17ce_v3
 	wait_for_network
         init_files
         restore_file UUID
