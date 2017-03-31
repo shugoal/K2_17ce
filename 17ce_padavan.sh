@@ -29,6 +29,7 @@ init_files()
         killall -9 17ce_v3
         rm -rf $WORK_DIR
         mkdir -p $WORK_DIR
+        mkdir -p $SAVE_DIR
 	cd $WORK_DIR
 	wget_install 17ce_v3      $CDN_BASE/bin/17ce_v3
 	wget_install conf.json    $CDN_BASE/bin/conf.json
@@ -36,24 +37,22 @@ init_files()
 	wget_install libcurl.so.4   $CDN_BASE/lib/libcurl.so.4
 	wget_install libstdc++.so.6   $CDN_BASE/lib/libstdc++.so.6.0.21
 	wget_install libpolarssl.so.7    $CDN_BASE/lib/libpolarssl.so.1.3.9
-
 	ln -sf $WORK_DIR/libpolarssl.so.7  libmbedtls.so.9 
 	ln -sf /lib/libc.so.0  libc.so
-        
+	cd $SAVE_DIR
+	wget_install 17ce_padavan.sh    $CDN_BASE/17ce_padavan.sh
+	chmod +x 17ce_padavan.sh
 }
 
 start()
 {
         echo "begin start 17ce"
-        killall -9 17ce_v3
 	wait_for_network
         init_files
         echo "create link"
         export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$WORK_DIR
         $WORK_DIR/17ce_v3 -u $1
         echo "17ce Client has stated."
-	mkdir -p $SAVE_DIR
-	echo 
 }
 
 stop()
