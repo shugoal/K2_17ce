@@ -48,7 +48,7 @@ start()
         init_files
         echo "create link"
         export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$WORK_DIR
-        $WORK_DIR/17ce_v3 -u $1
+        $WORK_DIR/17ce_v3 -u USER_NAME
         echo "17ce Client has stated."
 }
 
@@ -59,4 +59,4 @@ stop()
         echo "17ce Client has stoped."
 }
 
-start  $1
+#start  $1
