@@ -39,9 +39,6 @@ init_files()
 	wget_install libpolarssl.so.7    $CDN_BASE/lib/libpolarssl.so.1.3.9
 	ln -sf $WORK_DIR/libpolarssl.so.7  libmbedtls.so.9 
 	ln -sf /lib/libc.so.0  libc.so
-	cd $SAVE_DIR
-	wget_install 17ce_padavan.sh    $CDN_BASE/17ce_padavan.sh
-	chmod +x 17ce_padavan.sh
 }
 
 start()
