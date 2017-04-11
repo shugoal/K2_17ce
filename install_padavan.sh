@@ -11,8 +11,8 @@ else
 fi
 echo 
 echo 
-echo "By Dandan£¡"
-echo "mjyhj update£¡And use myself£¡"
+echo "By Dandan!"
+echo "mjyhj update£¡And use myself!"
 rm -rf /etc/storage/17ce
 rm -rf /tmp/17ce
 rm  -rf 17ce*
