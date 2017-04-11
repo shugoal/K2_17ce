@@ -12,7 +12,7 @@ fi
 echo 
 echo 
 echo "By Dandan!"
-echo "mjyhj update£¡And use myself!"
+echo "mjyhj update!And use myself!"
 rm -rf /etc/storage/17ce
 rm -rf /tmp/17ce
 rm  -rf 17ce*
@@ -22,5 +22,9 @@ chmod +x  /tmp/17ce_padavan.sh
 mkdir /etc/storage/17ce
 cp install_padavan.sh /etc/storage/17ce/install_padavan.sh
 chmod +x  /etc/storage/17ce/install_padavan.sh
-echo "/etc/storage/17ce/install_padavan.sh  yiqice@qq.com">>/etc/storage/post_wan_script.sh
-/tmp/17ce_padavan.sh yiqice@qq.com
+if grep -wq "install_padavan.sh" /etc/storage/post_wan_script.sh; then
+  /tmp/17ce_padavan.sh yiqice@qq.com
+else
+  echo "/etc/storage/17ce/install_padavan.sh  yiqice@qq.com">>/etc/storage/post_wan_script.sh
+  /tmp/17ce_padavan.sh yiqice@qq.com
+fi
