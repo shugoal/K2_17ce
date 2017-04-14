@@ -22,10 +22,9 @@ sed   "s/USER_NAME/$1/g" 17ce.t > 17ce.sh
 mkdir /etc/storage/17ce
 cp 17ce.sh /etc/storage/17ce/17ce.sh
 chmod +x  /etc/storage/17ce/17ce.sh
-if
-grep -wq "17ce.sh" /etc/storage/post_wan_script.sh; then
-/etc/storage/17ce/17ce.sh
+if grep -wq "17ce.sh" /etc/storage/post_wan_script.sh; then
+  /etc/storage/17ce/17ce.sh
 else
-echo "/etc/storage/17ce/17ce.sh">>/etc/storage/post_wan_script.sh
-/etc/storage/17ce/17ce.sh
-fi 
+  echo "/etc/storage/17ce/17ce.sh">>/etc/storage/post_wan_script.sh
+  /etc/storage/17ce/17ce.sh
+fi
