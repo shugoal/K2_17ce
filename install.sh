@@ -6,7 +6,7 @@ if [ $# == 1 ]; then
 	sleep 3
 else 
 	echo "please use the cmd-->"
-	echo "     ./install.sh   xxx@xxx.com"
+	echo "	./install.sh	xxx@xxx.com"
 	exit 1
 fi
 echo 
