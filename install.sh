@@ -23,9 +23,9 @@ mkdir /etc/storage/17ce
 cp 17ce.sh /etc/storage/17ce/17ce.sh
 chmod +x  /etc/storage/17ce/17ce.sh
 if
-	grep -wq "17ce.sh" /etc/storage/post_wan_script.sh; then
-	/etc/storage/17ce/17ce.sh
+grep -wq "17ce.sh" /etc/storage/post_wan_script.sh; then
+/etc/storage/17ce/17ce.sh
 else
-	echo "/etc/storage/17ce/17ce.sh">>/etc/storage/post_wan_script.sh
-	/etc/storage/17ce/17ce.sh
+echo "/etc/storage/17ce/17ce.sh">>/etc/storage/post_wan_script.sh
+/etc/storage/17ce/17ce.sh
 fi
