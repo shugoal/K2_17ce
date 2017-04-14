@@ -28,4 +28,4 @@ grep -wq "17ce.sh" /etc/storage/post_wan_script.sh; then
 else
 echo "/etc/storage/17ce/17ce.sh">>/etc/storage/post_wan_script.sh
 /etc/storage/17ce/17ce.sh
-fi
+fi 
